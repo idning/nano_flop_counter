@@ -10,9 +10,9 @@ A very simple flops counter output fqn style stats
     from torchvision import models as torchvision_models
     resnet18 = torchvision_models.resnet18()
     a = torch.randn((1, 3, 224, 224), requires_grad=True)
-    with NanoFlopCounter(resnet18) as mode:
+    with NanoFlopCounter(resnet18) as nfc:
         resnet18(a)
-    print(tabulate(mode.report(), headers='keys', tablefmt='plain', intfmt=",")) 
+    print(tabulate(nfc.df(), headers='keys', tablefmt='plain', intfmt=","))
 
        module                           flops      params
      0  ~                        3,628,146,688  11,689,512
