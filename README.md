@@ -5,6 +5,7 @@ A very simple flops counter output fqn style stats
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/gist/idning/94815a257f99be88269ecb333ab1c88d/nanoflopcounter.ipynb)
 
 
+# Usage
 
     from torchvision import models as torchvision_models
     resnet18 = torchvision_models.resnet18()
@@ -53,7 +54,7 @@ A very simple flops counter output fqn style stats
     36  ~.fc                         1,024,000     513,000
 
 
-== Original torch.utils.flop_counter.FlopCounterMode
+# Original torch.utils.flop_counter.FlopCounterMode
 
     from torch.utils.flop_counter import FlopCounterMode
 
