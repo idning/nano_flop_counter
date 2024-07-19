@@ -1,8 +1,8 @@
 # nano_flop_counter
 
-notebook: https://colab.research.google.com/gist/idning/94815a257f99be88269ecb333ab1c88d/nanoflopcounter.ipynb
-
 A very simple flops counter output fqn style stats
+
+notebook: [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/gist/idning/94815a257f99be88269ecb333ab1c88d/nanoflopcounter.ipynb]
 
 
     from torchvision import models as torchvision_models
