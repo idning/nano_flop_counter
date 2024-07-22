@@ -2,10 +2,10 @@
 
 A very simple flops counter output fqn style stats
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/gist/idning/94815a257f99be88269ecb333ab1c88d/nanoflopcounter.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/gist/idning/121ec7e37634091353c946bb01859da1/nanoflopcounter.ipynb)
 
 
-# Usage
+# Usage - ResNet example
 
     from torchvision import models as torchvision_models
     resnet18 = torchvision_models.resnet18()
@@ -67,4 +67,56 @@ A very simple flops counter output fqn style stats
     Global               3628.147M    100.00%
      - aten.convolution  3627.123M     99.97%
      - aten.addmm           1.024M      0.03%
+
+# Usage - NanoGPT Example
+
+    !git clone https://github.com/karpathy/nanoGPT
+    import sys
+    sys.path.append("nanoGPT")
+
+
+    import torch
+
+    from model import GPT, GPTConfig
+    gpt2=dict(n_layer=12, n_head=12, n_embd=768)  # 124M params
+    config = GPTConfig(**gpt2)
+    model = GPT(config)
+
+    x = torch.randint(high=100, size=(2, 1024))
+    with NanoFlopCounter(model) as mode:
+        model(x)
+    print(tabulate(mode.report(), headers='keys', tablefmt='plain', intfmt=","))
+
+    number of parameters: 123.69M
+        module                                    flops       params
+     0  ~                               348,086,206,464  124,475,904
+     1  ~.transformer                   347,930,099,712  124,475,904
+     2  ~.transformer.h                 347,930,099,712   85,054,464
+     3  ~.transformer.h.0                28,994,174,976    7,087,872
+     4  ~.transformer.h.0.attn            9,663,676,416    2,362,368
+     5  ~.transformer.h.0.attn.c_attn     7,247,757,312    1,771,776
+     6  ~.transformer.h.0.attn.c_proj     2,415,919,104      590,592
+     7  ~.transformer.h.0.mlp            19,327,352,832    4,722,432
+     8  ~.transformer.h.0.mlp.c_fc        9,663,676,416    2,362,368
+     9  ~.transformer.h.0.mlp.c_proj      9,663,676,416    2,360,064
+    10  ~.transformer.h.1                28,994,174,976    7,087,872
+    11  ~.transformer.h.1.attn            9,663,676,416    2,362,368
+    12  ~.transformer.h.1.attn.c_attn     7,247,757,312    1,771,776
+    13  ~.transformer.h.1.attn.c_proj     2,415,919,104      590,592
+    14  ~.transformer.h.1.mlp            19,327,352,832    4,722,432
+    15  ~.transformer.h.1.mlp.c_fc        9,663,676,416    2,362,368
+    16  ~.transformer.h.1.mlp.c_proj      9,663,676,416    2,360,064
+    ...
+
+# Original torch.utils.flop_counter.FlopCounterMode
+
+    with FlopCounterMode(display=False) as fc:
+        model(x)
+    print(fc.get_table())
+
+    Module             FLOP    % Total
+    -------------  --------  ---------
+    Global         348.047B    100.00%
+     - aten.addmm  347.892B     99.96%
+     - aten.mm       0.155B      0.04%
 
