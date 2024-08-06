@@ -2,8 +2,9 @@
 
 A very simple flops counter output fqn style stats
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/gist/idning/121ec7e37634091353c946bb01859da1/nanoflopcounter.ipynb)
 
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/gist/idning/121ec7e37634091353c946bb01859da1/nanoflopcounter.ipynb)
+(Latest Update only on the colab instead of nano_flop_counter.py)
 
 # Usage - ResNet example
 
